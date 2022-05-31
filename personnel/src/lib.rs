@@ -1,4 +1,5 @@
 use std::{
+    fmt,
     fs::File,
     io::{self, BufRead},
     str::FromStr,
@@ -31,6 +32,21 @@ impl FromStr for AstronautJob {
             "RoverOp" => Ok(AstronautJob::RoverOp),
             "Scientist" => Ok(AstronautJob::Scientist),
             _ => Err(format!("Unknown job: {}", s)),
+        }
+    }
+}
+
+impl fmt::Display for AstronautJob {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            AstronautJob::Biogeochemist => write!(f, "Biogeochemist"),
+            AstronautJob::Biologist => write!(f, "Biologist"),
+            AstronautJob::Engineer => write!(f, "Engineer"),
+            AstronautJob::Geologist => write!(f, "Geologist"),
+            AstronautJob::Mechanic => write!(f, "Mechanic"),
+            AstronautJob::Medic => write!(f, "Medic"),
+            AstronautJob::RoverOp => write!(f, "RoverOp"),
+            AstronautJob::Scientist => write!(f, "Scientist"),
         }
     }
 }
@@ -74,5 +90,22 @@ impl Candidate {
                 }
             })
             .collect() // Collect the candidates into a vector
+    }
+}
+
+impl fmt::Display for Candidate {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match &self.secondary_job {
+            Some(sj) => write!(
+                f,
+                "Candidate: ({}, {}, {}, {})",
+                self.primary_job, sj, self.age, self.health
+            ),
+            _ => write!(
+                f,
+                "Candidate: ({}, {}, {})",
+                self.primary_job, self.age, self.health
+            ),
+        }
     }
 }
