@@ -37,7 +37,7 @@ fn calculate_candidate_score(c: &Candidate) -> u32 {
     ((js + hs) * ags) % 3928
 }
 
-fn candidate_rank(cands: &mut Vec<Candidate>) {
+fn candidate_rank(cands: &mut [Candidate]) {
     cands.sort_by(|x, y| (&calculate_candidate_score(y)).cmp(&calculate_candidate_score(x)))
 }
 
